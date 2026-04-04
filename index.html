@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>AuEmoChat: Towards Authentic Emotion Rendering for Conversational Speech Synthesis</title>
+		<title>AuEmoChat: Authentic Emotion Understanding and Rendering for Conversational Speech Synthesis</title>
 		<link type="text/css" href="./css/basic.css" rel="stylesheet">
 		<link type="text/css" href="./css/index.css" rel="stylesheet">
 		<link type="text/css" href="./css/bootstrap.min.css" rel="stylesheet">
@@ -190,8 +190,8 @@
 				<div class="section" id="abstract">
 					<div class="section-title">1. Abstract</div>
 					<div class="section-content abstract">
-						xxx
-						<a href="xxx">xxx</a>.
+						 Conversational Speech Synthesis (CSS) aims to synthesize speech with human-like emotional expression and contextual consistency in user-agent interactions. Existing CSS methods struggle to render authentic human emotions due to limited predefined emotion label spaces (e.g., seven emotion categories), while redundant multimodal tokens in multi-turn dialogue history interfere with context understanding. To address these issues, we propose AuEmoChat, a CSS framework for authentic emotion understanding and rendering. First, we develop AuEmoCodec, which learns a discrete authentic emotion token space from large-scale emotional speech via finite scalar quantization, enabling a more authentic emotion representation than limited basic emotion categories. We further propose AuEmoToMe, an authentic-emotion-guided token merging algorithm that merges redundant tokens in multimodal dialogue history while preserving emotion-relevant context. We integrate it into an autoregressive text-speech model to predict the target authentic emotion token and speech tokens. Finally, we propose Authentic Emotion Flow Matching, which renders speech by jointly conditioning on merged dialogue context, target authentic emotion, and acoustic priors. Extensive experiments on the NCSSD-EmCap dataset demonstrate that AuEmoChat outperforms state-of-the-art CSS baselines and generates more expressive and authentic emotional speech. The code and speech demos will be available at:
+						<a href="https://github.com/anonymous-css/AuEmoChat">https://github.com/anonymous-css/AuEmoChat</a>.
 					</div>
 				</div>
 				
@@ -200,7 +200,7 @@
 					<div class="section-content model">
 						<img src="img/auemochat.png" alt="" class="model-img">
 						
-						<p style="padding-top: 1rem; color: #a1a1a1; font-size: 1rem; text-align: center;">Figure 1: The overview of AuEmoChat consists of xxx1, xxx2 and xxx3.</p>
+						<p style="padding-top: 1rem; color: #a1a1a1; font-size: 1rem; text-align: center;">Figure 1: The left side illustrates the overall framework of the proposed AuEmoChat, which includes: Multimodal Dialogue Tokenization, AuEmoToMe-based Authentic Emotion Understanding, and Merged Context-Aware Authentic Emotion Rendering. The right side illustrates the overall framework of the proposed AuEmoCodec.</p>
 					</div>
 				</div>
 				
@@ -209,10 +209,10 @@
 					<div class="section-content experiments">
 						<!-- We develop four neural TTS systems for a  -->
 						<strong>Comparative Experiment:</strong>
-						</br> 1) <b>BaseCSS</b> xxx. <a href="xxx" style="color: #1d5da4;">[PAPER]</a>
-						</br> 2) <b>ECSS</b> xxx. <a href="xxx" style="color: #1d5da4;">[PAPER]</a>
-						</br> 3) <b>GPT-Talker</b> xxx. <a href="xxx" style="color: #1d5da4;">[PAPER]</a>
-						</br> 4) <b>Chain-Talker</b> xxx. <a href="xxx" style="color: #1d5da4;">[PAPER]</a>
+						</br> 1) <b>BaseCSS</b> employs a coarse-grained context encoder to model dialogue history for improving speech quality. In our implementation, we additionally introduce an authentic emotion encoder to incorporate authentic emotion representations. <a href="https://ieeexplore.ieee.org/abstract/document/9383460/" style="color: #1d5da4;">[PAPER]</a>
+						</br> 2) <b>ECSS</b> introduces a heterogeneous graph context encoder to model multimodal dialogue history in a structured manner, enabling better inference of the target authentic emotion and more expressive speech generation. <a href="https://ojs.aaai.org/index.php/AAAI/article/view/29833" style="color: #1d5da4;">[PAPER]</a>
+						</br> 3) <b>GPT-Talker</b> represents the multimodal information in dialogue history as a sequence of discrete tokens containing semantic and stylistic information, and leverages the sequence prediction capability of a pretrained autoregressive model to generate the semantic and acoustic tokens of the response, followed by VITS for expressive conversational speech synthesis. In our implementation, we further introduce authentic emotion tokens into each utterance in the dialogue sequence to enhance its emotion modeling capability. <a href="https://aclanthology.org/2025.findings-acl.101/" style="color: #1d5da4;">[PAPER]</a>
+						</br> 4) <b>Chain-Talker</b> adopts a three-stage framework consisting of emotion understanding, semantic understanding, and empathy rendering. It improves context modeling by predicting emotion and semantic captions from multimodal dialogue history, thereby enhancing the empathetic expression of synthesized speech. <a href="https://dl.acm.org/doi/abs/10.1145/3746027.3755502" style="color: #1d5da4;">[PAPER]</a>
 						
 					</div>
 					<div class="section-content ">
@@ -221,7 +221,7 @@
 							<!-- 一句话分割 -->
 							<div class="module-content">
 								<span class="note">
-								  <b>Sample 1: </b>xxx. 
+								  <b>Sample 1: </b>Good. That’s something unusual. 
 								  <span style="float: right; color: #6b7280;">(Source: DailyTalk)</span>
 								</span>
 								
@@ -244,10 +244,49 @@
 										<tbody>
 											<tr>
 												<td style="text-align: center">1<sup>th</sup></td>
-												<td style="text-align: center">What type of music do you like to listen to?</td>
-												<td style="text-align: center"><audio src="./audio/history/2394/0_0_d2394.wav" controls="" preload=""></audio></td>
+												<td style="text-align: center">Sheila, what time should we meet tomorrow?</td>
+												<td style="text-align: center"><audio src="./audio/history/dailytalk/1792/0_0_d1792.wav" controls="" preload=""></audio></td>
 											</tr>
-											<!-- ... -->
+											<tr>
+												<td style="text-align: center">2<sup>th</sup></td>
+												<td style="text-align: center">The usual time. Half past two in the afternoon.</td>
+												<td style="text-align: center"><audio src="./audio/history/dailytalk/1792/1_1_d1792.wav" controls="" preload=""></audio></td>
+											</tr>
+											<tr>
+												<td style="text-align: center">3<sup>th</sup></td>
+												<td style="text-align: center">What place?</td>
+												<td style="text-align: center"><audio src="./audio/history/dailytalk/1792/2_0_d1792.wav" controls="" preload=""></audio></td>
+											</tr>
+											<tr>
+												<td style="text-align: center">4<sup>th</sup></td>
+												<td style="text-align: center">The usual place. In front of the treasure house.</td>
+												<td style="text-align: center"><audio src="./audio/history/dailytalk/1792/3_1_d1792.wav" controls="" preload=""></audio></td>
+											</tr>
+											<tr>
+												<td style="text-align: center">5<sup>th</sup></td>
+												<td style="text-align: center">And what should I wear?</td>
+												<td style="text-align: center"><audio src="./audio/history/dailytalk/1792/4_0_d1792.wav" controls="" preload=""></audio></td>
+											</tr>
+											<tr>
+												<td style="text-align: center">6<sup>th</sup></td>
+												<td style="text-align: center">Your usual shirt and shoes.</td>
+												<td style="text-align: center"><audio src="./audio/history/dailytalk/1792/5_1_d1792.wav" controls="" preload=""></audio></td>
+											</tr>
+											<tr>
+												<td style="text-align: center">7<sup>th</sup></td>
+												<td style="text-align: center">What are you going to wear?</td>
+												<td style="text-align: center"><audio src="./audio/history/dailytalk/1792/6_0_d1792.wav" controls="" preload=""></audio></td>
+											</tr>
+											<tr>
+												<td style="text-align: center">8<sup>th</sup></td>
+												<td style="text-align: center">Nothing unusual, I’m afraid.</td>
+												<td style="text-align: center"><audio src="./audio/history/dailytalk/1792/7_1_d1792.wav" controls="" preload=""></audio></td>
+											</tr>
+											<tr>
+												<td style="text-align: center">9<sup>th</sup></td>
+												<td style="text-align: center">Sheila, how about that fashionable blue dress?</td>
+												<td style="text-align: center"><audio src="./audio/history/dailytalk/1792/8_0_d1792.wav" controls="" preload=""></audio></td>
+											</tr>
 										</tbody>
 									</table>
 								</div>
@@ -287,8 +326,8 @@
 									</thead>
 									<tbody>
 										<tr>
-											<td style="text-align: center">7<sup>th</sup></td>
-											<td style="text-align: center">xxx.</td>
+											<td style="text-align: center">10<sup>th</sup></td>
+											<td style="text-align: center">Good. That’s something unusual.</td>
 											<td style="text-align: center"><audio src="./audio/dailytalk-auemo/DailyTalk-9_1_d1792.wav" controls="" preload=""></audio></td>
 											<td style="text-align: center"><audio src="./audio/ecss-auemo/DailyTalk-9_1_d1792.wav" controls="" preload=""></audio></td>
 											<td style="text-align: center"><audio src="./audio/gpt-talker-auemo/DailyTalk-9_1_d1792.wav" controls="" preload=""></audio></td>
@@ -303,12 +342,12 @@
 							<!-- 一句话分割 -->
 							<div class="module-content">
 								<span class="note">
-								  <b>Sample 2: </b>xxx. 
+								  <b>Sample 2: </b>I went to visit an uncle in San Francisco. 
 								  <span style="float: right; color: #6b7280;">(Source: DailyTalk)</span>
 								</span>
 								
-								<button class="toggle-button" onclick="toggleTable('tab1')">Show Conversation history 1</button>
-								<div id="tab1" class="toggle-content">
+								<button class="toggle-button" onclick="toggleTable('tab2')">Show Conversation history 2</button>
+								<div id="tab2" class="toggle-content">
 								
 									<table id="table_4">
 										<thead>
@@ -326,10 +365,29 @@
 										<tbody>
 											<tr>
 												<td style="text-align: center">1<sup>th</sup></td>
-												<td style="text-align: center">What type of music do you like to listen to?</td>
-												<td style="text-align: center"><audio src="./audio/history/2394/0_0_d2394.wav" controls="" preload=""></audio></td>
+												<td style="text-align: center">Long time no see!</td>
+												<td style="text-align: center"><audio src="./audio/history/dailytalk/970/0_1_d970.wav" controls="" preload=""></audio></td>
 											</tr>
-											<!-- ... -->
+											<tr>
+												<td style="text-align: center">2<sup>th</sup></td>
+												<td style="text-align: center">Yes. It has been a long time since the last time we met.</td>
+												<td style="text-align: center"><audio src="./audio/history/dailytalk/970/1_0_d970.wav" controls="" preload=""></audio></td>
+											</tr>
+											<tr>
+												<td style="text-align: center">3<sup>th</sup></td>
+												<td style="text-align: center">It's nice to see you again. Have you changed jobs?</td>
+												<td style="text-align: center"><audio src="./audio/history/dailytalk/970/2_1_d970.wav" controls="" preload=""></audio></td>
+											</tr>
+											<tr>
+												<td style="text-align: center">4<sup>th</sup></td>
+												<td style="text-align: center">No. I've been visiting relatives recently.</td>
+												<td style="text-align: center"><audio src="./audio/history/dailytalk/970/3_0_d970.wav" controls="" preload=""></audio></td>
+											</tr>
+											<tr>
+												<td style="text-align: center">5<sup>th</sup></td>
+												<td style="text-align: center">That's nice. Where have you been?</td>
+												<td style="text-align: center"><audio src="./audio/history/dailytalk/970/4_1_d970.wav" controls="" preload=""></audio></td>
+											</tr>
 										</tbody>
 									</table>
 								</div>
@@ -369,8 +427,8 @@
 									</thead>
 									<tbody>
 										<tr>
-											<td style="text-align: center">7<sup>th</sup></td>
-											<td style="text-align: center">xxx.</td>
+											<td style="text-align: center">6<sup>th</sup></td>
+											<td style="text-align: center">I went to visit an uncle in San Francisco.</td>
 											<td style="text-align: center"><audio src="./audio/dailytalk-auemo/DailyTalk-5_0_d970.wav" controls="" preload=""></audio></td>
 											<td style="text-align: center"><audio src="./audio/ecss-auemo/DailyTalk-5_0_d970.wav" controls="" preload=""></audio></td>
 											<td style="text-align: center"><audio src="./audio/gpt-talker-auemo/DailyTalk-5_0_d970.wav" controls="" preload=""></audio></td>
@@ -382,96 +440,18 @@
 							</div>
 							<!-- 一句话分割 -->
 							
-							<!-- 一句话分割 -->
-							<!-- <div class="module-content">
-								<span class="note">
-								  <b>Sample 3: </b>xxx. 
-								  <span style="float: right; color: #6b7280;">(Source: DailyTalk)</span>
-								</span>
-								
-								<button class="toggle-button" onclick="toggleTable('tab1')">Show Conversation history 1</button>
-								<div id="tab1" class="toggle-content">
-								
-									<table id="table_4">
-										<thead>
-											<colgroup>
-											   <col width=10%></col>
-											   <col width=25%></col>
-											   <col width=20%></col>
-											</colgroup>
-											<tr>
-											  <th colspan="1" style="text-align: center"><strong>Conversation history</strong></th>
-											  <th colspan="1" style="text-align: center"><strong>text</strong></th>
-											  <th colspan="1" style="text-align: center"><strong>speech</strong></th>
-											</tr>
-										</thead>
-										<tbody>
-											<tr>
-												<td style="text-align: center">1<sup>th</sup></td>
-												<td style="text-align: center">What type of music do you like to listen to?</td>
-												<td style="text-align: center"><audio src="./audio/history/2394/0_0_d2394.wav" controls="" preload=""></audio></td>
-											</tr>
-										</tbody>
-									</table>
-								</div>
 							
-							</div>
-							<div class="module-content">
-								<table id="table_4">
-									<thead>
-										<colgroup>
-										   <col></col>
-										</colgroup>
-										<tr>
-										  <th colspan="1" style="text-align: center"><strong>Comparative</strong></th>
-										</tr>
-									</thead>
-								</table>
-								<table id="table_4">
-									<thead>
-										<colgroup>
-										   <col width=15%></col>
-										   <col width=25%></col>
-										   <col width=20%></col>
-										   <col width=20%></col>
-										   <col width=20%></col>
-										   <col width=20%></col>
-										   <col width=20%></col>
-										</colgroup>
-										<tr>
-										  <th colspan="1" style="text-align: center"><strong>current</strong></th>
-										  <th colspan="1" style="text-align: center"><strong>text</strong></th>
-										  <th colspan="1" style="text-align: center"><strong>BaseCSS</strong></th>
-										  <th colspan="1" style="text-align: center"><strong>ECSS</strong></th>
-										  <th colspan="1" style="text-align: center"><strong>GPT-Talker</strong></th>
-										  <th colspan="1" style="text-align: center"><strong>Chain-Talker</strong></th>
-										  <th colspan="1" style="text-align: center"><strong style="color: #1d5da4;">Ours</strong></th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td style="text-align: center">7<sup>th</sup></td>
-											<td style="text-align: center">xxx.</td>
-											<td style="text-align: center"><audio src="./audio/dailytalk-auemo/DailyTalk-5_1_d1107.wav" controls="" preload=""></audio></td>
-											<td style="text-align: center"><audio src="./audio/ecss-auemo/DailyTalk-5_1_d1107.wav" controls="" preload=""></audio></td>
-											<td style="text-align: center"><audio src="./audio/gpt-talker-auemo/DailyTalk-5_1_d1107.wav" controls="" preload=""></audio></td>
-											<td style="text-align: center"><audio src="./audio/chain-talker/DailyTalk-5_1_d1107.wav" controls="" preload=""></audio></td>
-											<td style="text-align: center"><audio src="./audio/auemochat/DailyTalk-5_1_d1107.wav" controls="" preload=""></audio></td>
-										</tr>
-									</tbody>
-								</table>
-							</div> -->
-							<!-- 一句话分割 -->
+							
 							
 							<!-- 一句话分割 -->
 							<div class="module-content">
 								<span class="note">
-								  <b>Sample 3: </b>xxx. 
+								  <b>Sample 3: </b>And we all know how the news on facebook is too sad crazy how far internet has come did you know you can get cell service on top of mt everest.
 								  <span style="float: right; color: #6b7280;">(Source: MultiDialog)</span>
 								</span>
 								
-								<button class="toggle-button" onclick="toggleTable('tab1')">Show Conversation history 1</button>
-								<div id="tab1" class="toggle-content">
+								<button class="toggle-button" onclick="toggleTable('tab3')">Show Conversation history 3</button>
+								<div id="tab3" class="toggle-content">
 								
 									<table id="table_4">
 										<thead>
@@ -489,10 +469,34 @@
 										<tbody>
 											<tr>
 												<td style="text-align: center">1<sup>th</sup></td>
-												<td style="text-align: center">What type of music do you like to listen to?</td>
-												<td style="text-align: center"><audio src="./audio/history/2394/0_0_d2394.wav" controls="" preload=""></audio></td>
+												<td style="text-align: center">Good morning do you have a facebook account.</td>
+												<td style="text-align: center"><audio src="./audio/history/multidialogue/4516/0_g_d4516.wav" controls="" preload=""></audio></td>
 											</tr>
-											<!-- ... -->
+											<tr>
+												<td style="text-align: center">2<sup>th</sup></td>
+												<td style="text-align: center">Yes i do have a facebook account i mostly just use it for remembering birthdays though haha what about you.</td>
+												<td style="text-align: center"><audio src="./audio/history/multidialogue/4516/1_c_d4516.wav" controls="" preload=""></audio></td>
+											</tr>
+											<tr>
+												<td style="text-align: center">3<sup>th</sup></td>
+												<td style="text-align: center">Same here and for the same reason haha i cant believe myspace turned down the offer to buy it for seventyfive million dollars in two thousand five.</td>
+												<td style="text-align: center"><audio src="./audio/history//multidialogue/4516/2_g_d4516.wav" controls="" preload=""></audio></td>
+											</tr>
+											<tr>
+												<td style="text-align: center">4<sup>th</sup></td>
+												<td style="text-align: center">That seems really dumb also dumb is that a third of divorce filings actually contain the word facebook so i wonder what that is all about.</td>
+												<td style="text-align: center"><audio src="./audio/history/multidialogue/4516/3_c_d4516.wav" controls="" preload=""></audio></td>
+											</tr>
+											<tr>
+												<td style="text-align: center">5<sup>th</sup></td>
+												<td style="text-align: center">Yes me too its sad weve come to that haha i thought it was funny when burger king had the promotion where you could get a free whopper if you unfriended ten friends i would be eating so good haha.</td>
+												<td style="text-align: center"><audio src="./audio/history/multidialogue/4516/4_g_d4516.wav" controls="" preload=""></audio></td>
+											</tr>
+											<tr>
+												<td style="text-align: center">6<sup>th</sup></td>
+												<td style="text-align: center">Yes i wish they still had that haha i would be eating some burgers right now what is sad though is that thirty of adults use facebook as their source of news.</td>
+												<td style="text-align: center"><audio src="./audio/history/multidialogue/4516/5_c_d4516.wav" controls="" preload=""></audio></td>
+											</tr>
 										</tbody>
 									</table>
 								</div>
@@ -533,90 +537,7 @@
 									<tbody>
 										<tr>
 											<td style="text-align: center">7<sup>th</sup></td>
-											<td style="text-align: center">xxx.</td>
-											<td style="text-align: center"><audio src="./audio/dailytalk-auemo/MultiDialog-5_c_d7396.wav" controls="" preload=""></audio></td>
-											<td style="text-align: center"><audio src="./audio/ecss-auemo/MultiDialog-5_c_d7396.wav" controls="" preload=""></audio></td>
-											<td style="text-align: center"><audio src="./audio/gpt-talker-auemo/MultiDialog-5_c_d7396.wav" controls="" preload=""></audio></td>
-											<td style="text-align: center"><audio src="./audio/chain-talker/MultiDialog-5_c_d7396.wav" controls="" preload=""></audio></td>
-											<td style="text-align: center"><audio src="./audio/auemochat/MultiDialog-5_c_d7396.wav" controls="" preload=""></audio></td>
-										</tr>
-									</tbody>
-								</table>
-							</div>
-							<!-- 一句话分割 -->
-							
-							
-							<!-- 一句话分割 -->
-							<div class="module-content">
-								<span class="note">
-								  <b>Sample 4: </b>xxx. 
-								  <span style="float: right; color: #6b7280;">(Source: MultiDialog)</span>
-								</span>
-								
-								<button class="toggle-button" onclick="toggleTable('tab1')">Show Conversation history 1</button>
-								<div id="tab1" class="toggle-content">
-								
-									<table id="table_4">
-										<thead>
-											<colgroup>
-											   <col width=10%></col>
-											   <col width=25%></col>
-											   <col width=20%></col>
-											</colgroup>
-											<tr>
-											  <th colspan="1" style="text-align: center"><strong>Conversation history</strong></th>
-											  <th colspan="1" style="text-align: center"><strong>text</strong></th>
-											  <th colspan="1" style="text-align: center"><strong>speech</strong></th>
-											</tr>
-										</thead>
-										<tbody>
-											<tr>
-												<td style="text-align: center">1<sup>th</sup></td>
-												<td style="text-align: center">What type of music do you like to listen to?</td>
-												<td style="text-align: center"><audio src="./audio/history/2394/0_0_d2394.wav" controls="" preload=""></audio></td>
-											</tr>
-											<!-- ... -->
-										</tbody>
-									</table>
-								</div>
-							
-							</div>
-							<div class="module-content">
-								<table id="table_4">
-									<thead>
-										<colgroup>
-										   <col></col>
-										</colgroup>
-										<tr>
-										  <th colspan="1" style="text-align: center"><strong>Comparative</strong></th>
-										</tr>
-									</thead>
-								</table>
-								<table id="table_4">
-									<thead>
-										<colgroup>
-										   <col width=15%></col>
-										   <col width=25%></col>
-										   <col width=20%></col>
-										   <col width=20%></col>
-										   <col width=20%></col>
-										   <col width=20%></col>
-										   <col width=20%></col>
-										</colgroup>
-										<tr>
-										  <th colspan="1" style="text-align: center"><strong>current</strong></th>
-										  <th colspan="1" style="text-align: center"><strong>text</strong></th>
-										  <th colspan="1" style="text-align: center"><strong>BaseCSS</strong></th>
-										  <th colspan="1" style="text-align: center"><strong>ECSS</strong></th>
-										  <th colspan="1" style="text-align: center"><strong>GPT-Talker</strong></th>
-										  <th colspan="1" style="text-align: center"><strong>Chain-Talker</strong></th>
-										  <th colspan="1" style="text-align: center"><strong style="color: #1d5da4;">Ours</strong></th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td style="text-align: center">7<sup>th</sup></td>
-											<td style="text-align: center">xxx.</td>
+											<td style="text-align: center">And we all know how the news on facebook is too sad crazy how far internet has come did you know you can get cell service on top of mt everest.</td>
 											<td style="text-align: center"><audio src="./audio/dailytalk-auemo/MultiDialog-6_g_d4516.wav" controls="" preload=""></audio></td>
 											<td style="text-align: center"><audio src="./audio/ecss-auemo/MultiDialog-6_g_d4516.wav" controls="" preload=""></audio></td>
 											<td style="text-align: center"><audio src="./audio/gpt-talker-auemo/MultiDialog-6_g_d4516.wav" controls="" preload=""></audio></td>
@@ -631,12 +552,12 @@
 							<!-- 一句话分割 -->
 							<div class="module-content">
 								<span class="note">
-								  <b>Sample 5: </b>xxx. 
-								  <span style="float: right; color: #6b7280;">(Source: NCSSD)</span>
+								  <b>Sample 4: </b>Ha thats funny did you know the first president of zimbabwe was called president banana. 
+								  <span style="float: right; color: #6b7280;">(Source: MultiDialog)</span>
 								</span>
 								
-								<button class="toggle-button" onclick="toggleTable('tab1')">Show Conversation history 1</button>
-								<div id="tab1" class="toggle-content">
+								<button class="toggle-button" onclick="toggleTable('tab4')">Show Conversation history 4</button>
+								<div id="tab4" class="toggle-content">
 								
 									<table id="table_4">
 										<thead>
@@ -654,10 +575,29 @@
 										<tbody>
 											<tr>
 												<td style="text-align: center">1<sup>th</sup></td>
-												<td style="text-align: center">What type of music do you like to listen to?</td>
-												<td style="text-align: center"><audio src="./audio/history/2394/0_0_d2394.wav" controls="" preload=""></audio></td>
+												<td style="text-align: center">Hi, how are you.</td>
+												<td style="text-align: center"><audio src="./audio/history/multidialogue/7396/0_d_d7396.wav" controls="" preload=""></audio></td>
 											</tr>
-											<!-- ... -->
+											<tr>
+												<td style="text-align: center">2<sup>th</sup></td>
+												<td style="text-align: center">Great how about you did you know that dogs are not color blind a lot of people think they are.</td>
+												<td style="text-align: center"><audio src="./audio/history/multidialogue/7396/1_c_d7396.wav" controls="" preload=""></audio></td>
+											</tr>
+											<tr>
+												<td style="text-align: center">3<sup>th</sup></td>
+												<td style="text-align: center">I thought they were too dogs can have twelve different blood types.</td>
+												<td style="text-align: center"><audio src="./audio/history/multidialogue/7396/2_d_d7396.wav" controls="" preload=""></audio></td>
+											</tr>
+											<tr>
+												<td style="text-align: center">4<sup>th</sup></td>
+												<td style="text-align: center">Wow thats a lot of different blood types did you know that google prefers dogs over cats i guess its in their code of conduct.</td>
+												<td style="text-align: center"><audio src="./audio/history/multidialogue/7396/3_c_d7396.wav" controls="" preload=""></audio></td>
+											</tr>
+											<tr>
+												<td style="text-align: center">5<sup>th</sup></td>
+												<td style="text-align: center">Thats a company that i could work for aol was probably a cat company.</td>
+												<td style="text-align: center"><audio src="./audio/history/multidialogue/7396/4_d_d7396.wav" controls="" preload=""></audio></td>
+											</tr>
 										</tbody>
 									</table>
 								</div>
@@ -697,8 +637,112 @@
 									</thead>
 									<tbody>
 										<tr>
-											<td style="text-align: center">7<sup>th</sup></td>
-											<td style="text-align: center">xxx.</td>
+											<td style="text-align: center">6<sup>th</sup></td>
+											<td style="text-align: center">Ha thats funny did you know the first president of zimbabwe was called president banana. </td>
+											<td style="text-align: center"><audio src="./audio/dailytalk-auemo/MultiDialog-5_c_d7396.wav" controls="" preload=""></audio></td>
+											<td style="text-align: center"><audio src="./audio/ecss-auemo/MultiDialog-5_c_d7396.wav" controls="" preload=""></audio></td>
+											<td style="text-align: center"><audio src="./audio/gpt-talker-auemo/MultiDialog-5_c_d7396.wav" controls="" preload=""></audio></td>
+											<td style="text-align: center"><audio src="./audio/chain-talker/MultiDialog-5_c_d7396.wav" controls="" preload=""></audio></td>
+											<td style="text-align: center"><audio src="./audio/auemochat/MultiDialog-5_c_d7396.wav" controls="" preload=""></audio></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<!-- 一句话分割 -->
+							
+							
+							
+							
+							<!-- 一句话分割 -->
+							<div class="module-content">
+								<span class="note">
+								  <b>Sample 5: </b>Yeah, wouldn't that be great? Maybe someday we'll come up with a solution for that.  
+								  <span style="float: right; color: #6b7280;">(Source: NCSSD)</span>
+								</span>
+								
+								<button class="toggle-button" onclick="toggleTable('tab5')">Show Conversation history 5</button>
+								<div id="tab5" class="toggle-content">
+								
+									<table id="table_4">
+										<thead>
+											<colgroup>
+											   <col width=10%></col>
+											   <col width=25%></col>
+											   <col width=20%></col>
+											</colgroup>
+											<tr>
+											  <th colspan="1" style="text-align: center"><strong>Conversation history</strong></th>
+											  <th colspan="1" style="text-align: center"><strong>text</strong></th>
+											  <th colspan="1" style="text-align: center"><strong>speech</strong></th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<td style="text-align: center">1<sup>th</sup></td>
+												<td style="text-align: center">Why is the traffic signal always red when I'm in a hurry?</td>
+												<td style="text-align: center"><audio src="./audio/history/ncssd/1176/0_0_d1176.wav" controls="" preload=""></audio></td>
+											</tr>
+											<tr>
+												<td style="text-align: center">2<sup>th</sup></td>
+												<td style="text-align: center">I know it's so frustrating. It feels like it's entirely trying to slow us down.</td>
+												<td style="text-align: center"><audio src="./audio/history/ncssd/1176/1_4_d1176.wav" controls="" preload=""></audio></td>
+											</tr>
+											<tr>
+												<td style="text-align: center">3<sup>th</sup></td>
+												<td style="text-align: center">Exactly, it's like the traffic signal has a personal video against me.</td>
+												<td style="text-align: center"><audio src="./audio/history/ncssd/1176/2_0_d1176.wav" controls="" preload=""></audio></td>
+											</tr>
+											<tr>
+												<td style="text-align: center">4<sup>th</sup></td>
+												<td style="text-align: center">I feel the same way. It's infuriating to be stuck at every red light.</td>
+												<td style="text-align: center"><audio src="./audio/history/ncssd/1176/3_4_d1176.wav" controls="" preload=""></audio></td>
+											</tr>
+											<tr>
+												<td style="text-align: center">5<sup>th</sup></td>
+												<td style="text-align: center">I wish you was a way to avoid these traffic signals altogether.</td>
+												<td style="text-align: center"><audio src="./audio/history/ncssd/1176/4_0_d1176.wav" controls="" preload=""></audio></td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							
+							</div>
+							<div class="module-content">
+								<table id="table_4">
+									<thead>
+										<colgroup>
+										   <col></col>
+										</colgroup>
+										<tr>
+										  <th colspan="1" style="text-align: center"><strong>Comparative</strong></th>
+										</tr>
+									</thead>
+								</table>
+								<table id="table_4">
+									<thead>
+										<colgroup>
+										   <col width=15%></col>
+										   <col width=25%></col>
+										   <col width=20%></col>
+										   <col width=20%></col>
+										   <col width=20%></col>
+										   <col width=20%></col>
+										   <col width=20%></col>
+										</colgroup>
+										<tr>
+										  <th colspan="1" style="text-align: center"><strong>current</strong></th>
+										  <th colspan="1" style="text-align: center"><strong>text</strong></th>
+										  <th colspan="1" style="text-align: center"><strong>BaseCSS</strong></th>
+										  <th colspan="1" style="text-align: center"><strong>ECSS</strong></th>
+										  <th colspan="1" style="text-align: center"><strong>GPT-Talker</strong></th>
+										  <th colspan="1" style="text-align: center"><strong>Chain-Talker</strong></th>
+										  <th colspan="1" style="text-align: center"><strong style="color: #1d5da4;">Ours</strong></th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td style="text-align: center">6<sup>th</sup></td>
+											<td style="text-align: center">Yeah, wouldn't that be great? Maybe someday we'll come up with a solution for that.</td>
 											<td style="text-align: center"><audio src="./audio/dailytalk-auemo/NCSSD-5_4_d1176.wav" controls="" preload=""></audio></td>
 											<td style="text-align: center"><audio src="./audio/ecss-auemo/NCSSD-5_4_d1176.wav" controls="" preload=""></audio></td>
 											<td style="text-align: center"><audio src="./audio/gpt-talker-auemo/NCSSD-5_4_d1176.wav" controls="" preload=""></audio></td>
@@ -710,15 +754,17 @@
 							</div>
 							<!-- 一句话分割 -->
 							
+							
+							
 							<!-- 一句话分割 -->
 							<div class="module-content">
 								<span class="note">
-								  <b>Sample 6: </b>xxx. 
+								  <b>Sample 6: </b>That's cool. I should start following some as well. 
 								  <span style="float: right; color: #6b7280;">(Source: NCSSD)</span>
 								</span>
 								
-								<button class="toggle-button" onclick="toggleTable('tab1')">Show Conversation history 1</button>
-								<div id="tab1" class="toggle-content">
+								<button class="toggle-button" onclick="toggleTable('tab6')">Show Conversation history 6</button>
+								<div id="tab6" class="toggle-content">
 								
 									<table id="table_4">
 										<thead>
@@ -736,10 +782,29 @@
 										<tbody>
 											<tr>
 												<td style="text-align: center">1<sup>th</sup></td>
-												<td style="text-align: center">What type of music do you like to listen to?</td>
-												<td style="text-align: center"><audio src="./audio/history/2394/0_0_d2394.wav" controls="" preload=""></audio></td>
+												<td style="text-align: center">Networks, celebrities are gaining more and more popularity these days.</td>
+												<td style="text-align: center"><audio src="./audio/history/ncssd/208/0_0_d208.wav" controls="" preload=""></audio></td>
 											</tr>
-											<!-- ... -->
+											<tr>
+												<td style="text-align: center">2<sup>th</sup></td>
+												<td style="text-align: center">Yeah, I've noticed that that too. It is interesting how they can influence so many people.</td>
+												<td style="text-align: center"><audio src="./audio/history/ncssd/208/1_10_d208.wav" controls="" preload=""></audio></td>
+											</tr>
+											<tr>
+												<td style="text-align: center">3<sup>th</sup></td>
+												<td style="text-align: center">Definitely the reach and impact are impressive.</td>
+												<td style="text-align: center"><audio src="./audio/history/ncssd/208/2_0_d208.wav" controls="" preload=""></audio></td>
+											</tr>
+											<tr>
+												<td style="text-align: center">4<sup>th</sup></td>
+												<td style="text-align: center">Do you follow any specific network celebrities?</td>
+												<td style="text-align: center"><audio src="./audio/history/ncssd/208/3_10_d208.wav" controls="" preload=""></audio></td>
+											</tr>
+											<tr>
+												<td style="text-align: center">5<sup>th</sup></td>
+												<td style="text-align: center">Yes, I'm a big fan of a few. They provide great content and insights.</td>
+												<td style="text-align: center"><audio src="./audio/history/ncssd/208/4_0_d208.wav" controls="" preload=""></audio></td>
+											</tr>
 										</tbody>
 									</table>
 								</div>
@@ -779,8 +844,8 @@
 									</thead>
 									<tbody>
 										<tr>
-											<td style="text-align: center">7<sup>th</sup></td>
-											<td style="text-align: center">xxx.</td>
+											<td style="text-align: center">6<sup>th</sup></td>
+											<td style="text-align: center">That's cool. I should start following some as well.</td>
 											<td style="text-align: center"><audio src="./audio/dailytalk-auemo/NCSSD-5_10_d208.wav" controls="" preload=""></audio></td>
 											<td style="text-align: center"><audio src="./audio/ecss-auemo/NCSSD-5_10_d208.wav" controls="" preload=""></audio></td>
 											<td style="text-align: center"><audio src="./audio/gpt-talker-auemo/NCSSD-5_10_d208.wav" controls="" preload=""></audio></td>
